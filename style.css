@@ -514,6 +514,55 @@ h1, h2, h3 {
 }
 
 /* ============================================
+   LANGUAGE SWITCHER & RTL SUPPORT
+   ============================================ */
+.lang-switcher {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  background: rgba(0, 217, 255, 0.1);
+  border: 1px solid var(--neon-cyan);
+  color: var(--neon-cyan);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-family: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.lang-switcher:hover {
+  background: var(--neon-cyan);
+  color: var(--bg-dark);
+  box-shadow: 0 0 15px var(--neon-cyan);
+}
+
+/* دعم اللغة العربية (RTL) */
+html[dir="rtl"] {
+  font-family: 'Cairo', sans-serif;
+}
+
+html[dir="rtl"] .lang-switcher {
+  right: auto;
+  left: 20px;
+}
+
+html[dir="rtl"] .project-tag, 
+html[dir="rtl"] .eyebrow, 
+html[dir="rtl"] .section-sub {
+  letter-spacing: normal; /* إزالة المسافات الكبيرة بين الحروف للعربية */
+}
+
+html[dir="rtl"] .project-title,
+html[dir="rtl"] .section-title,
+html[dir="rtl"] .hero-title,
+html[dir="rtl"] .footer-title {
+  letter-spacing: -0.01em;
+}
+
+/* ============================================
    ACCESSIBILITY
    ============================================ */
 @media (prefers-reduced-motion: reduce) {
