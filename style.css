@@ -471,14 +471,6 @@ h1, h2, h3 {
 }
 
 /* ============================================
-   ANIMATIONS (initial states for GSAP)
-   ============================================ */
-[data-project] {
-  opacity: 0;
-  transform: translateY(40px);
-}
-
-/* ============================================
    RESPONSIVE
    ============================================ */
 @media (max-width: 1024px) {
@@ -502,7 +494,9 @@ h1, h2, h3 {
   .project-overlay { padding: 22px; }
   .project-title { font-size: 1.3rem; }
   .project-tag { font-size: 0.62rem; letter-spacing: 2px; }
-  .project-description { opacity: 1; transform: none; }  /* دائم الظهور على الجوال */
+  
+  /* إظهار الوصف والزر دائماً على الجوال */
+  .project-description { opacity: 1; transform: none; } 
   .project-button { opacity: 1; transform: none; }
 
   .about-card { padding: 28px; }
