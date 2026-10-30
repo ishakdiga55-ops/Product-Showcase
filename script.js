@@ -1,5 +1,5 @@
 /* ============================================
-   PORTFOLIO — MAIN SCRIPT
+   PORTFOLIO — MAIN SCRIPT (With Language Toggle)
    ============================================ */
 
 (function () {
@@ -11,7 +11,49 @@
   gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
   /* -------------------------------------------
-     1. CUSTOM CURSOR
+     1. LANGUAGE TOGGLE LOGIC
+  ------------------------------------------- */
+  function initLanguage() {
+    const langToggle = document.getElementById('langToggle');
+    if (!langToggle) return; // في حال لم يوجد الزر
+
+    let currentLang = localStorage.getItem('site-lang') || 'en';
+
+    function applyLanguage(lang) {
+      // تغيير اتجاه الصفحة (LTR أو RTL)
+      document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+      document.documentElement.setAttribute('lang', lang);
+      
+      // تغيير نص الزر
+      langToggle.textContent = lang === 'ar' ? 'English' : 'عربي';
+
+      // تحديث كل النصوص التي تحمل data-i18n
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) {
+          el.innerHTML = translations[lang][key];
+        }
+      });
+
+      // تحديث أبعاد GSAP لأن تغيير النص قد يغير ارتفاع العناصر
+      if (typeof ScrollTrigger !== 'undefined') {
+        setTimeout(() => ScrollTrigger.refresh(), 150);
+      }
+    }
+
+    // تطبيق اللغة المحفوظة مسبقاً (أو الإنجليزية كلغة افتراضية)
+    applyLanguage(currentLang);
+
+    // حدث الضغط على زر تغيير اللغة
+    langToggle.addEventListener('click', () => {
+      currentLang = currentLang === 'en' ? 'ar' : 'en';
+      localStorage.setItem('site-lang', currentLang);
+      applyLanguage(currentLang);
+    });
+  }
+
+  /* -------------------------------------------
+     2. CUSTOM CURSOR
   ------------------------------------------- */
   function initCursor() {
     if (IS_MOBILE || PREFERS_REDUCED) return;
@@ -46,7 +88,7 @@
   }
 
   /* -------------------------------------------
-     2. THREE.JS BACKGROUND
+     3. THREE.JS BACKGROUND
   ------------------------------------------- */
   function initThreeJS() {
     if (IS_MOBILE || PREFERS_REDUCED) return;
@@ -131,7 +173,7 @@
   }
 
   /* -------------------------------------------
-     3. HERO INTRO ANIMATION
+     4. HERO INTRO ANIMATION
   ------------------------------------------- */
   function initHeroAnimation() {
     if (PREFERS_REDUCED) return;
@@ -144,12 +186,11 @@
   }
 
   /* -------------------------------------------
-     4. SCROLL REVEAL — PROJECT CARDS (FIXED)
+     5. SCROLL REVEAL — PROJECT CARDS
   ------------------------------------------- */
   function initProjectReveals() {
     if (PREFERS_REDUCED) return;
 
-    // استخدام gsap.from لضمان ظهور المشاريع حتى لو تعطل السكريبت
     gsap.utils.toArray('[data-project]').forEach((card, i) => {
       gsap.from(card, {
         opacity: 0,
@@ -167,7 +208,7 @@
   }
 
   /* -------------------------------------------
-     5. SCROLL REVEAL — SECTIONS
+     6. SCROLL REVEAL — SECTIONS
   ------------------------------------------- */
   function initSectionReveals() {
     if (PREFERS_REDUCED) return;
@@ -201,7 +242,7 @@
   }
 
   /* -------------------------------------------
-     6. SMOOTH SCROLL
+     7. SMOOTH SCROLL
   ------------------------------------------- */
   function initSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach((link) => {
@@ -224,7 +265,7 @@
   }
 
   /* -------------------------------------------
-     7. BUTTON MICRO-INTERACTIONS
+     8. BUTTON MICRO-INTERACTIONS
   ------------------------------------------- */
   function initButtonHover() {
     if (PREFERS_REDUCED) return;
@@ -240,9 +281,10 @@
   }
 
   /* -------------------------------------------
-     8. INIT ON LOAD
+     9. INIT ON LOAD
   ------------------------------------------- */
   function init() {
+    initLanguage(); // تفعيل الترجمة أولاً
     initCursor();
     initThreeJS();
     initHeroAnimation();
