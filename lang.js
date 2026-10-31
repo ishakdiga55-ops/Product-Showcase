@@ -1,7 +1,10 @@
+/* ============================================
+   LANGUAGE SYSTEM — INDEPENDENT MODULE
+   ============================================ */
+
 const translations = {
   en: {
-    nav_work: "View My Work",
-    nav_contact: "Get In Touch",
+    hero_badge: "Available for work",
     hero_eyebrow: "Front-End Developer — Portfolio 2025",
     hero_title: "I BUILD<br><span class='neon-glow'>DIGITAL EXPERIENCES</span>",
     hero_sub: "Front-End Developer specializing in interactive 3D and high-end web design. Crafting pixel-perfect interfaces with cutting-edge technologies.",
@@ -30,8 +33,7 @@ const translations = {
     footer_rights: "© 2025 Creative Developer. All rights reserved."
   },
   ar: {
-    nav_work: "عرض أعمالي",
-    nav_contact: "تواصل معنا",
+    hero_badge: "متاح للعمل",
     hero_eyebrow: "مطور واجهات أمامية - ملف أعمال 2025",
     hero_title: "أقوم ببناء<br><span class='neon-glow'>تجارب رقمية</span>",
     hero_sub: "مطور واجهات أمامية متخصص في تصميم مواقع الويب التفاعلية ثلاثية الأبعاد والراقية. أصمم واجهات دقيقة للغاية باستخدام أحدث التقنيات.",
@@ -60,3 +62,43 @@ const translations = {
     footer_rights: "© 2025 مطور مبدع. جميع الحقوق محفوظة."
   }
 };
+
+document.addEventListener('DOMContentLoaded', () => {
+  const langToggle = document.getElementById('langToggle');
+  if (!langToggle) return;
+
+  let currentLang = 'en';
+  try {
+    currentLang = localStorage.getItem('site-lang') || 'en';
+  } catch (e) {
+    console.warn("LocalStorage disabled.");
+  }
+
+  function applyLanguage(lang) {
+    document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+    document.documentElement.setAttribute('lang', lang);
+    
+    langToggle.textContent = lang === 'ar' ? 'English' : 'عربي';
+
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (translations[lang] && translations[lang][key]) {
+        el.innerHTML = translations[lang][key];
+      }
+    });
+
+    // إطلاق حدث مخصص ليتمكن script.js من تحديث أبعاد GSAP
+    window.dispatchEvent(new Event('languageChanged'));
+  }
+
+  // تطبيق اللغة عند التحميل
+  applyLanguage(currentLang);
+
+  // التبديل عند الضغط
+  langToggle.addEventListener('click', (e) => {
+    e.preventDefault();
+    currentLang = currentLang === 'en' ? 'ar' : 'en';
+    try { localStorage.setItem('site-lang', currentLang); } catch(e) {}
+    applyLanguage(currentLang);
+  });
+});
