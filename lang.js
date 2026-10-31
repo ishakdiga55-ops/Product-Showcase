@@ -22,6 +22,8 @@ const translations = {
     p3_desc: "Elegant perfume store with refined motion and premium product presentation.",
     p4_title: "Destination",
     p4_desc: "Modern phones landing page with a clean product-first layout and smooth browsing experience.",
+    p5_title: "Ala Kifak",
+    p5_desc: "A modern e-commerce platform offering a seamless shopping experience with a focus on visual appeal and usability.",
     btn_view_live: "View Live ↗",
     
     sec_about: "Skills & Expertise",
@@ -51,6 +53,8 @@ const translations = {
     p3_desc: "متجر عطور أنيق مع حركات بصرية راقية وعرض متميز للمنتجات.",
     p4_title: "الوجهة",
     p4_desc: "صفحة هبوط حديثة للهواتف المحمولة بتصميم نظيف يركز على المنتج وتجربة تصفح سلسة.",
+    p5_title: "على كيفك",
+    p5_desc: "منصة تجارة إلكترونية حديثة تقدم تجربة تسوق سلسة مع التركيز على الجاذبية البصرية وسهولة الاستخدام.",
     btn_view_live: "زيارة الموقع ↗",
     
     sec_about: "المهارات والخبرات",
@@ -87,14 +91,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // إطلاق حدث مخصص ليتمكن script.js من تحديث أبعاد GSAP
     window.dispatchEvent(new Event('languageChanged'));
   }
 
-  // تطبيق اللغة عند التحميل
   applyLanguage(currentLang);
 
-  // التبديل عند الضغط
   langToggle.addEventListener('click', (e) => {
     e.preventDefault();
     currentLang = currentLang === 'en' ? 'ar' : 'en';
