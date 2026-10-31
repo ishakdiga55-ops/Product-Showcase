@@ -39,21 +39,38 @@
 
     <!-- Hero -->
     <section id="hero" class="hero">
-      <div class="max-w-5xl mx-auto px-6 text-center">
+      <!-- إضاءة خلفية متحركة -->
+      <div class="hero-glow-bg" aria-hidden="true"></div>
+
+      <div class="max-w-5xl mx-auto px-6 text-center hero-content">
+        <!-- شارة متاح للعمل -->
+        <div class="hero-badge">
+          <span class="badge-dot"></span>
+          <span data-i18n="hero_badge">Available for work</span>
+        </div>
+
         <p class="eyebrow" data-i18n="hero_eyebrow">Front-End Developer — Portfolio 2025</p>
+        
         <h1 class="hero-title" data-i18n="hero_title">
           I BUILD<br />
           <span class="neon-glow">DIGITAL EXPERIENCES</span>
         </h1>
+        
         <p class="hero-sub" data-i18n="hero_sub">
           Front-End Developer specializing in interactive 3D and high-end web design.
           Crafting pixel-perfect interfaces with cutting-edge technologies.
         </p>
+        
         <div class="hero-actions">
           <a href="#projects" class="btn-neon" data-i18n="btn_view_work">View My Work</a>
           <a href="mailto:Ishakziat66@gmail.com" class="btn-neon btn-neon--green" data-i18n="btn_get_touch">Get In Touch</a>
         </div>
       </div>
+
+      <!-- سهم التمرير للأسفل -->
+      <a href="#projects" class="scroll-down" aria-label="Scroll Down">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
+      </a>
     </section>
 
     <!-- Projects -->
@@ -175,7 +192,8 @@
   <!-- Three.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-  <!-- Custom JS (محدث) -->
-  <script src="script.js?v=2"></script>
+  <!-- Custom JS & Lang -->
+  <script src="lang.js?v=4"></script>
+  <script src="script.js?v=4"></script>
 </body>
 </html>
