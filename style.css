@@ -87,7 +87,7 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
 }
 
 /* ============================================
-   HERO SECTION (FIXED SPACING & EFFECTS)
+   HERO SECTION
    ============================================ */
 .hero {
   position: relative; min-height: 100vh;
@@ -99,7 +99,6 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
 
 .hero-content { position: relative; z-index: 2; }
 
-/* الإضاءة الخلفية */
 .hero-glow-bg {
   position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
   width: 100vw; height: 100vh;
@@ -113,7 +112,6 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
   100% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
 }
 
-/* شارة متاح للعمل */
 .hero-badge {
   display: inline-flex; align-items: center; gap: 8px;
   padding: 8px 16px; background: rgba(34, 255, 136, 0.05);
@@ -133,7 +131,6 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
   50% { opacity: 0.4; transform: scale(0.8); }
 }
 
-/* سهم التمرير */
 .scroll-down {
   position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
   color: var(--neon-cyan); z-index: 2;
@@ -224,10 +221,12 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
 }
 .project-card:hover .project-image { transform: scale(1.06); }
 
+/* Gradient Backgrounds for Projects */
 .project-image--1 { background: linear-gradient(135deg, #0a1a2e 0%, #00d9ff 140%); }
 .project-image--2 { background: linear-gradient(135deg, #1a1a2e 0%, #00d9ff 130%); }
 .project-image--3 { background: linear-gradient(135deg, #2a1a1a 0%, #22ff88 130%); }
 .project-image--4 { background: linear-gradient(135deg, #0a1a1a 0%, #00d9ff 120%); }
+.project-image--5 { background: linear-gradient(135deg, #2e1a0a 0%, #22ff88 120%); }
 
 .project-image-label {
   font-size: 1.1rem; font-weight: 800; letter-spacing: 6px;
@@ -266,6 +265,18 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
   width: fit-content; padding: 10px 24px; font-size: 0.7rem;
 }
 .project-card:hover .project-button { opacity: 1; transform: translateY(0); }
+
+/* تنسيق الكارت الخامس ليكون بعرض الشاشة في الكمبيوتر */
+@media (min-width: 901px) {
+  .project-card:nth-child(5) {
+    grid-column: 1 / -1;
+    height: 380px;
+  }
+  .project-card:nth-child(5) .project-overlay {
+    align-items: center;
+    text-align: center;
+  }
+}
 
 /* ============================================
    ABOUT & FOOTER
@@ -309,10 +320,9 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
 }
 
 @media (max-width: 768px) {
-  /* إصلاح الفراغ في الهيرو */
   .hero { 
     padding: 130px 20px 60px; 
-    align-items: flex-start; /* سحب النص للأعلى */
+    align-items: flex-start;
   }
   
   .hero-title { font-size: 2.5rem; }
@@ -326,7 +336,6 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
   .project-title { font-size: 1.3rem; }
   .project-tag { font-size: 0.62rem; letter-spacing: 2px; }
   
-  /* إظهار الوصف والزر دائماً على الجوال */
   .project-description { opacity: 1; transform: none; } 
   .project-button { opacity: 1; transform: none; }
 
