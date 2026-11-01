@@ -8,18 +8,29 @@
 
   let allProjects = [];
 
+  // 1. جلب بيانات المشاريع
   async function fetchAndRenderProjects() {
     try {
       const response = await fetch('projects.json');
+      if (!response.ok) throw new Error("ملف projects.json غير موجود أو به خطأ");
       allProjects = await response.json();
+      
+      if (!Array.isArray(allProjects) || allProjects.length === 0) {
+        throw new Error("ملف projects.json فارغ أو غير صالح");
+      }
+
       renderProjects(allProjects);
       initProjectReveals(); 
     } catch (error) {
       console.error("Error loading projects:", error);
+      const grid = document.getElementById('projectsGrid');
+      if(grid) {
+        grid.innerHTML = `<p style="color:#ff4444; text-align:center; width:100%; padding:20px; border:1px dashed red;">حدث خطأ: ${error.message}. يرجى التأكد من ملف projects.json</p>`;
+      }
     }
   }
 
-  // تعديل: استخدام theme و label بدلاً من الصور
+  // 2. رسم الكروت ديناميكياً
   function renderProjects(projects) {
     const grid = document.getElementById('projectsGrid');
     if (!grid) return;
@@ -28,12 +39,14 @@
     const currentLang = document.documentElement.getAttribute('lang') || 'en';
 
     projects.forEach(project => {
-      const title = translations[currentLang][project.titleKey] || project.titleKey;
-      const desc = translations[currentLang][project.descKey] || project.descKey;
-      const tag = translations[currentLang][project.tagKey] || project.tagKey;
+      // التحقق من وجود الترجمة، وإلا نستخدم النص الافتراضي
+      const title = (translations[currentLang] && translations[currentLang][project.titleKey]) || project.titleKey;
+      const desc = (translations[currentLang] && translations[currentLang][project.descKey]) || project.descKey;
+      const tag = (translations[currentLang] && translations[currentLang][project.tagKey]) || project.tagKey;
 
+      // تم إضافة data-project هنا لتعمل حركات GSAP بشكل صحيح
       const cardHTML = `
-        <article class="project-card glass" data-category="${project.category}" onclick="openProjectModal(${project.id})">
+        <article class="project-card glass" data-category="${project.category}" data-project onclick="openProjectModal(${project.id})">
           <div class="project-image ${project.theme}">
             <span class="project-image-label">${project.label}</span>
           </div>
@@ -49,6 +62,7 @@
     });
   }
 
+  // 3. نظام التصفية
   function initFilters() {
     const filterBtns = document.querySelectorAll('.filter-btn');
     filterBtns.forEach(btn => {
@@ -72,15 +86,15 @@
     });
   }
 
-  // تعديل: عرض الخلفية الملونة داخل النافذة المنبثقة
+  // 4. النافذة المنبثقة
   window.openProjectModal = function(id) {
     const project = allProjects.find(p => p.id === id);
     if (!project) return;
     
     const currentLang = document.documentElement.getAttribute('lang') || 'en';
-    const title = translations[currentLang][project.titleKey] || project.titleKey;
-    const desc = translations[currentLang][project.descKey] || project.descKey;
-    const tag = translations[currentLang][project.tagKey] || project.tagKey;
+    const title = (translations[currentLang] && translations[currentLang][project.titleKey]) || project.titleKey;
+    const desc = (translations[currentLang] && translations[currentLang][project.descKey]) || project.descKey;
+    const tag = (translations[currentLang] && translations[currentLang][project.tagKey]) || project.tagKey;
 
     const modalImage = document.getElementById('modalImage');
     modalImage.className = `modal-image ${project.theme}`;
@@ -106,8 +120,7 @@
     });
   }
 
-  // ... (احتفظ بباقي الدوال: initCursor, initThreeJS, initHeroAnimation, initProjectReveals, initSectionReveals, initSmoothScroll, initButtonHover كما هي في الكود السابق) ...
-
+  // 5. المؤشر
   function initCursor() {
     if (IS_MOBILE || PREFERS_REDUCED) return;
     const cursor = document.getElementById('cursor');
@@ -127,6 +140,7 @@
     });
   }
 
+  // 6. الخلفية 3D
   function initThreeJS() {
     if (IS_MOBILE || PREFERS_REDUCED) return;
     if (typeof THREE === 'undefined') return;
@@ -182,13 +196,15 @@
     });
   }
 
+  // 7. حركات الظهور
   function initHeroAnimation() {
     if (PREFERS_REDUCED) return;
-    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    gsap.from('.hero-bg-text', { opacity: 0, scale: 0.9, duration: 2, ease: 'power4.out', delay: 0.2 });
+    gsap.from('.hook-card', { x: 100, opacity: 0, duration: 1.2, ease: 'power4.out', delay: 0.5 });
+    const tl = gsap.timeline({ defaults: { ease: 'power4.out' }, delay: 0.8 });
     tl.from('.hero-badge', { y: -20, opacity: 0, duration: 0.6 })
-      .from('.hero .eyebrow', { y: 20, opacity: 0, duration: 0.6 }, '-=0.3')
-      .from('.hero-title', { y: 60, opacity: 0, duration: 1 }, '-=0.4')
-      .from('.hero-sub', { y: 30, opacity: 0, duration: 0.8 }, '-=0.5')
+      .from('.hero-title', { y=: 50, opacity: 0, duration:0 1 }, '-=0.4')
+      .from('.hero-sub.', { y: 30, opacity: 60, duration: 0.8 }, '-')
       .from('.hero-actions .btn-neon', { y: 30, opacity: 0, duration: 0.6, stagger: 0.15 }, '-=0.4')
       .from('.scroll-down', { opacity: 0, duration: 0.6 }, '-=0.2');
   }
@@ -235,6 +251,7 @@
     });
   }
 
+  // 8. التهيئة الرئيسية
   function init() {
     initCursor();
     initThreeJS();
@@ -245,11 +262,11 @@
     initModal();
     initFilters();
     
-    fetchAndRenderProjects();
+    fetchAndRenderProjects(); // تشغيل بناء المشاريع
 
     window.addEventListener('languageChanged', () => {
       setTimeout(() => {
-        renderProjects(allProjects);
+        renderProjects(allProjects); // إعادة رسم المشاريع عند تغيير اللغة
         ScrollTrigger.refresh();
       }, 150);
     });
