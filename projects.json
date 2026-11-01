@@ -1,0 +1,83 @@
+[
+  {
+    "id": 1,
+    "category": "webapp",
+    "image": "images/project1.jpg",
+    "url": "https://ishakdiga55-ops.github.io/Diga-scaner/",
+    "titleKey": "p1_title",
+    "descKey": "p1_desc",
+    "tagKey": "p1_tag"
+  },
+  {
+    "id": 2,
+    "category": "ecommerce",
+    "image": "images/project2.jpg",
+    "url": "https://ishakdiga55-ops.github.io/ScannerPro/",
+    "titleKey": "p2_title",
+    "descKey": "p2_desc",
+    "tagKey": "p2_tag"
+  },
+  {
+    "id": 3,
+    "category": "ecommerce",
+    "image": "images/project3.jpg",
+    "url": "https://ishakdiga55-ops.github.io/The-Perfumer/",
+    "titleKey": "p3_title",
+    "descKey": "p3_desc",
+    "tagKey": "p3_tag"
+  },
+  {
+    "id": 4,
+    "category": "ecommerce",
+    "image": "images/project4.jpg",
+    "url": "https://ishakdiga55-ops.github.io/Destination/#features",
+    "titleKey": "p4_title",
+    "descKey": "p4_desc",
+    "tagKey": "p4_tag"
+  },
+  {
+    "id": 5,
+    "category": "ecommerce",
+    "image": "images/project5.jpg",
+    "url": "https://ishakdiga55-ops.github.io/Ala-kifak-/",
+    "titleKey": "p5_title",
+    "descKey": "p5_desc",
+    "tagKey": "p5_tag"
+  },
+  {
+    "id": 6,
+    "category": "ecommerce",
+    "image": "images/project6.jpg",
+    "url": "https://ishakdiga55-ops.github.io/beauty/",
+    "titleKey": "p6_title",
+    "descKey": "p6_desc",
+    "tagKey": "p6_tag"
+  },
+  {
+    "id": 7,
+    "category": "ecommerce",
+    "image": "images/project7.jpg",
+    "url": "https://ishakdiga55-ops.github.io/Nour-Pharmacy/#order",
+    "titleKey": "p7_title",
+    "descKey": "p7_desc",
+    "tagKey": "p7_tag"
+  },
+  {
+    "id": 8,
+    "category": "ecommerce",
+    "image": "images/project8.jpg",
+    "url": "https://ishakdiga55-ops.github.io/Pi-ces-d-tach-es-automobiles/",
+    "titleKey": "p8_title",
+    "descKey": "p8_desc",
+    "tagKey": "p8_tag"
+  },
+  {
+    "id": 9,
+    "category": "webapp",
+    "image": "images/project9.jpg",
+    "url": "https://ishakdiga55-ops.github.io/Mini-Market/#/merchant/m4",
+    "titleKey": "p9_title",
+    "descKey": "p9_desc",
+    "tagKey": "p9_tag"
+  }
+]
