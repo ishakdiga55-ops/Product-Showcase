@@ -8,7 +8,6 @@
 
   let allProjects = [];
 
-  // 1. جلب بيانات المشاريع من JSON
   async function fetchAndRenderProjects() {
     try {
       const response = await fetch('projects.json');
@@ -20,7 +19,7 @@
     }
   }
 
-  // 2. رسم الكروت ديناميكياً
+  // تعديل: استخدام theme و label بدلاً من الصور
   function renderProjects(projects) {
     const grid = document.getElementById('projectsGrid');
     if (!grid) return;
@@ -32,12 +31,11 @@
       const title = translations[currentLang][project.titleKey] || project.titleKey;
       const desc = translations[currentLang][project.descKey] || project.descKey;
       const tag = translations[currentLang][project.tagKey] || project.tagKey;
-      const btnText = translations[currentLang]['modal_visit'] || 'View Project';
 
       const cardHTML = `
         <article class="project-card glass" data-category="${project.category}" onclick="openProjectModal(${project.id})">
-          <div class="project-image">
-            <img src="${project.image}" alt="${title}" class="project-img-real" loading="lazy" />
+          <div class="project-image ${project.theme}">
+            <span class="project-image-label">${project.label}</span>
           </div>
           <div class="project-overlay">
             <div class="project-tag">${tag}</div>
@@ -51,7 +49,6 @@
     });
   }
 
-  // 3. نظام التصفية (Filters)
   function initFilters() {
     const filterBtns = document.querySelectorAll('.filter-btn');
     filterBtns.forEach(btn => {
@@ -75,7 +72,7 @@
     });
   }
 
-  // 4. النافذة المنبثقة (Modal)
+  // تعديل: عرض الخلفية الملونة داخل النافذة المنبثقة
   window.openProjectModal = function(id) {
     const project = allProjects.find(p => p.id === id);
     if (!project) return;
@@ -85,7 +82,10 @@
     const desc = translations[currentLang][project.descKey] || project.descKey;
     const tag = translations[currentLang][project.tagKey] || project.tagKey;
 
-    document.getElementById('modalImage').src = project.image;
+    const modalImage = document.getElementById('modalImage');
+    modalImage.className = `modal-image ${project.theme}`;
+    modalImage.innerHTML = `<span class="project-image-label">${project.label}</span>`;
+
     document.getElementById('modalTitle').textContent = title;
     document.getElementById('modalDesc').textContent = desc;
     document.getElementById('modalTag').textContent = tag;
@@ -106,7 +106,8 @@
     });
   }
 
-  // 5. المؤشر (Cursor)
+  // ... (احتفظ بباقي الدوال: initCursor, initThreeJS, initHeroAnimation, initProjectReveals, initSectionReveals, initSmoothScroll, initButtonHover كما هي في الكود السابق) ...
+
   function initCursor() {
     if (IS_MOBILE || PREFERS_REDUCED) return;
     const cursor = document.getElementById('cursor');
@@ -126,7 +127,6 @@
     });
   }
 
-  // 6. الخلفية 3D (Three.js) - تم إصلاح خطأ الإضاءة
   function initThreeJS() {
     if (IS_MOBILE || PREFERS_REDUCED) return;
     if (typeof THREE === 'undefined') return;
@@ -182,7 +182,6 @@
     });
   }
 
-  // 7. حركات الظهور (GSAP Reveals)
   function initHeroAnimation() {
     if (PREFERS_REDUCED) return;
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
@@ -236,7 +235,6 @@
     });
   }
 
-  // 8. التهيئة الرئيسية
   function init() {
     initCursor();
     initThreeJS();
@@ -247,11 +245,11 @@
     initModal();
     initFilters();
     
-    fetchAndRenderProjects(); // بناء المشاريع ديناميكياً
+    fetchAndRenderProjects();
 
     window.addEventListener('languageChanged', () => {
       setTimeout(() => {
-        renderProjects(allProjects); // إعادة رسم المشاريع لترجمة النصوص الجديدة
+        renderProjects(allProjects);
         ScrollTrigger.refresh();
       }, 150);
     });
