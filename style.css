@@ -227,6 +227,8 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
 .project-image--3 { background: linear-gradient(135deg, #2a1a1a 0%, #22ff88 130%); }
 .project-image--4 { background: linear-gradient(135deg, #0a1a1a 0%, #00d9ff 120%); }
 .project-image--5 { background: linear-gradient(135deg, #2e1a0a 0%, #22ff88 120%); }
+.project-image--6 { background: linear-gradient(135deg, #2e0a1a 0%, #ff69b4 130%); }
+.project-image--7 { background: linear-gradient(135deg, #0a2e1a 0%, #00ffaa 130%); }
 
 .project-image-label {
   font-size: 1.1rem; font-weight: 800; letter-spacing: 6px;
@@ -265,18 +267,6 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
   width: fit-content; padding: 10px 24px; font-size: 0.7rem;
 }
 .project-card:hover .project-button { opacity: 1; transform: translateY(0); }
-
-/* تنسيق الكارت الخامس ليكون بعرض الشاشة في الكمبيوتر */
-@media (min-width: 901px) {
-  .project-card:nth-child(5) {
-    grid-column: 1 / -1;
-    height: 380px;
-  }
-  .project-card:nth-child(5) .project-overlay {
-    align-items: center;
-    text-align: center;
-  }
-}
 
 /* ============================================
    ABOUT & FOOTER
@@ -336,7 +326,7 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
   .project-title { font-size: 1.3rem; }
   .project-tag { font-size: 0.62rem; letter-spacing: 2px; }
   
-  .project-description { opacity: 1; transform: none; } 
+  .project-description { opacity: 1; transform: none; max-height: none; } 
   .project-button { opacity: 1; transform: none; }
 
   .about-card { padding: 28px; }
@@ -349,7 +339,7 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
 @media (max-width: 480px) {
   .hero-title { font-size: 2rem; }
   .section-title { font-size: 1.6rem; }
-  .project-card { height: 300px; }
+  .project-card { height: 320px; }
   .project-title { font-size: 1.15rem; }
 }
 
