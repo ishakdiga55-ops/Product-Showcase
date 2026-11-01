@@ -5,11 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ishak Ziat — Front-End Engineer</title>
 
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;800&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
 
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -22,13 +24,16 @@
     };
   </script>
 
+  <!-- Custom CSS -->
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body class="font-grotesk">
 
+  <!-- Language Switcher -->
   <button id="langToggle" class="lang-switcher" aria-label="Switch Language">عربي</button>
 
+  <!-- Custom Cursor & 3D Background -->
   <div class="cursor" id="cursor" aria-hidden="true"></div>
   <canvas id="canvas" aria-hidden="true"></canvas>
 
@@ -80,7 +85,7 @@
           <button class="filter-btn" data-filter="webapp" data-i18n="filter_webapp">Web Apps</button>
         </div>
 
-        <!-- Dynamic Grid -->
+        <!-- Dynamic Grid (يتم ملؤها بواسطة script.js) -->
         <div class="projects-grid" id="projectsGrid"></div>
       </div>
     </section>
@@ -128,7 +133,10 @@
   <div id="projectModal" class="modal">
     <div class="modal-content glass">
       <button id="closeModal" class="modal-close">&times;</button>
-      <img id="modalImage" src="" alt="Project Preview" class="modal-image" />
+      
+      <!-- تم استبدال الصورة بـ div ليدعم الخلفيات الملونة (Themes) -->
+      <div id="modalImage" class="modal-image"></div>
+      
       <div class="modal-info">
         <span id="modalTag" class="project-tag"></span>
         <h3 id="modalTitle" class="project-title"></h3>
@@ -144,7 +152,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-  <script src="lang.js?v=8"></script>
-  <script src="script.js?v=8"></script>
+  <!-- Custom JS & Lang -->
+  <script src="lang.js?v=9"></script>
+  <script src="script.js?v=9"></script>
 </body>
 </html>
