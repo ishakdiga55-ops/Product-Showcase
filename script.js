@@ -1,7 +1,3 @@
-/* ============================================
-   PORTFOLIO — MAIN SCRIPT (Animations Only)
-   ============================================ */
-
 (function () {
   'use strict';
 
@@ -10,6 +6,107 @@
 
   gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
+  let allProjects = [];
+
+  // 1. جلب بيانات المشاريع من JSON
+  async function fetchAndRenderProjects() {
+    try {
+      const response = await fetch('projects.json');
+      allProjects = await response.json();
+      renderProjects(allProjects);
+      initProjectReveals(); 
+    } catch (error) {
+      console.error("Error loading projects:", error);
+    }
+  }
+
+  // 2. رسم الكروت ديناميكياً
+  function renderProjects(projects) {
+    const grid = document.getElementById('projectsGrid');
+    if (!grid) return;
+    grid.innerHTML = '';
+    
+    const currentLang = document.documentElement.getAttribute('lang') || 'en';
+
+    projects.forEach(project => {
+      const title = translations[currentLang][project.titleKey] || project.titleKey;
+      const desc = translations[currentLang][project.descKey] || project.descKey;
+      const tag = translations[currentLang][project.tagKey] || project.tagKey;
+      const btnText = translations[currentLang]['modal_visit'] || 'View Project';
+
+      const cardHTML = `
+        <article class="project-card glass" data-category="${project.category}" onclick="openProjectModal(${project.id})">
+          <div class="project-image">
+            <img src="${project.image}" alt="${title}" class="project-img-real" loading="lazy" />
+          </div>
+          <div class="project-overlay">
+            <div class="project-tag">${tag}</div>
+            <h3 class="project-title">${title}</h3>
+            <p class="project-description">${desc}</p>
+            <span class="btn-neon project-button">Quick View</span>
+          </div>
+        </article>
+      `;
+      grid.insertAdjacentHTML('beforeend', cardHTML);
+    });
+  }
+
+  // 3. نظام التصفية (Filters)
+  function initFilters() {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        const filterValue = btn.getAttribute('data-filter');
+        const cards = document.querySelectorAll('.project-card');
+        
+        cards.forEach(card => {
+          if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+            card.style.display = 'block';
+            gsap.fromTo(card, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 });
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        ScrollTrigger.refresh();
+      });
+    });
+  }
+
+  // 4. النافذة المنبثقة (Modal)
+  window.openProjectModal = function(id) {
+    const project = allProjects.find(p => p.id === id);
+    if (!project) return;
+    
+    const currentLang = document.documentElement.getAttribute('lang') || 'en';
+    const title = translations[currentLang][project.titleKey] || project.titleKey;
+    const desc = translations[currentLang][project.descKey] || project.descKey;
+    const tag = translations[currentLang][project.tagKey] || project.tagKey;
+
+    document.getElementById('modalImage').src = project.image;
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('modalDesc').textContent = desc;
+    document.getElementById('modalTag').textContent = tag;
+    document.getElementById('modalLink').href = project.url;
+
+    const modal = document.getElementById('projectModal');
+    modal.classList.add('active');
+  };
+
+  function initModal() {
+    const modal = document.getElementById('projectModal');
+    const closeBtn = document.getElementById('closeModal');
+    if (!modal || !closeBtn) return;
+
+    closeBtn.addEventListener('click', () => modal.classList.remove('active'));
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.classList.remove('active');
+    });
+  }
+
+  // 5. المؤشر (Cursor)
   function initCursor() {
     if (IS_MOBILE || PREFERS_REDUCED) return;
     const cursor = document.getElementById('cursor');
@@ -29,6 +126,7 @@
     });
   }
 
+  // 6. الخلفية 3D (Three.js) - تم إصلاح خطأ الإضاءة
   function initThreeJS() {
     if (IS_MOBILE || PREFERS_REDUCED) return;
     if (typeof THREE === 'undefined') return;
@@ -55,8 +153,8 @@
     torus.rotation.set(0.5, 0, 0.8);
     scene.add(torus);
 
-    scene.add(new THREE.PointLight(0x00d9ff, 2, 100).position.set(30, 30, 30));
-    scene.add(new THREE.PointLight(0x22ff88, 1.5, 100).position.set(-30, -30, 30));
+    const light1 = new THREE.PointLight(0x00d9ff, 2, 100); light1.position.set(30, 30, 30); scene.add(light1);
+    const light2 = new THREE.PointLight(0x22ff88, 1.5, 100); light2.position.set(-30, -30, 30); scene.add(light2);
     scene.add(new THREE.AmbientLight(0xffffff, 0.1));
 
     let rafId = null;
@@ -77,18 +175,14 @@
     });
 
     window.addEventListener('resize', () => {
-      const w = window.innerWidth;
-      const h = window.innerHeight;
-      if (w < 768) {
-        running = false; if (rafId) cancelAnimationFrame(rafId);
-        canvas.style.display = 'none'; return;
-      }
-      canvas.style.display = 'block';
-      if (!running) { running = true; animate(); }
+      const w = window.innerWidth; const h = window.innerHeight;
+      if (w < 768) { running = false; if (rafId) cancelAnimationFrame(rafId); canvas.style.display = 'none'; return; }
+      canvas.style.display = 'block'; if (!running) { running = true; animate(); }
       camera.aspect = w / h; camera.updateProjectionMatrix(); renderer.setSize(w, h);
     });
   }
 
+  // 7. حركات الظهور (GSAP Reveals)
   function initHeroAnimation() {
     if (PREFERS_REDUCED) return;
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
@@ -142,17 +236,24 @@
     });
   }
 
+  // 8. التهيئة الرئيسية
   function init() {
     initCursor();
     initThreeJS();
     initHeroAnimation();
-    initProjectReveals();
     initSectionReveals();
     initSmoothScroll();
     initButtonHover();
+    initModal();
+    initFilters();
+    
+    fetchAndRenderProjects(); // بناء المشاريع ديناميكياً
 
     window.addEventListener('languageChanged', () => {
-      setTimeout(() => ScrollTrigger.refresh(), 150);
+      setTimeout(() => {
+        renderProjects(allProjects); // إعادة رسم المشاريع لترجمة النصوص الجديدة
+        ScrollTrigger.refresh();
+      }, 150);
     });
 
     window.addEventListener('load', () => {
