@@ -39,31 +39,53 @@
 
   <div class="content">
 
-    <!-- Hero Section -->
+    <!-- Hero Section (NEW HOOK VERSION) -->
     <section id="hero" class="hero">
       <div class="hero-glow-bg" aria-hidden="true"></div>
+      
+      <!-- النص الخلفي العملاق -->
+      <div class="hero-bg-text" aria-hidden="true">ENGINEER</div>
 
-      <div class="max-w-5xl mx-auto px-6 text-center hero-content">
-        <div class="hero-badge">
-          <span class="badge-dot"></span>
-          <span data-i18n="hero_badge">Available for work</span>
-        </div>
+      <div class="max-w-7xl mx-auto px-6 hero-content">
+        <div class="hero-layout">
+          
+          <!-- النصوص والأزرار -->
+          <div class="hero-text-side">
+            <div class="hero-badge">
+              <span class="badge-dot"></span>
+              <span data-i18n="hero_badge">Available for work</span>
+            </div>
 
-        <p class="eyebrow" data-i18n="hero_eyebrow">Front-End Engineer — Portfolio 2025</p>
-        
-        <h1 class="hero-title" data-i18n="hero_title">
-          ENGINEERING HIGH-PERFORMANCE<br />
-          <span class="neon-glow">WEB & E-COMMERCE SYSTEMS</span>
-        </h1>
-        
-        <p class="hero-sub" data-i18n="hero_sub">
-          I turn complex ideas into seamless, high-performance user interfaces. Specializing in dynamic systems (SaaS) and full-scale e-commerce. I will build you a professional website that speaks for itself and delivers results.
-        </p>
-        
-        <div class="hero-actions">
-          <a href="#projects" class="btn-neon" data-i18n="btn_view_work">Explore My Work</a>
-          <a href="mailto:Ishakziat66@gmail.com" class="btn-neon btn-neon--green" data-i18n="btn_get_touch">Hire Me</a>
-          <a href="CV.pdf" download class="btn-neon" data-i18n="btn_cv">Download CV</a>
+            <h1 class="hero-title" data-i18n="hero_title">
+              ENGINEERING HIGH-PERFORMANCE<br />
+              <span class="neon-glow">WEB & E-COMMERCE SYSTEMS</span>
+            </h1>
+            
+            <p class="hero-sub" data-i18n="hero_sub">
+              I turn complex ideas into seamless, high-performance user interfaces. Specializing in dynamic systems (SaaS) and full-scale e-commerce. I will build you a professional website that speaks for itself and delivers results.
+            </p>
+            
+            <div class="hero-actions">
+              <a href="#projects" class="btn-neon" data-i18n="btn_view_work">Explore My Work</a>
+              <a href="mailto:Ishakziat66@gmail.com" class="btn-neon btn-neon--green" data-i18n="btn_get_touch">Hire Me</a>
+            </div>
+          </div>
+
+          <!-- بطاقة الخطاف الجانبية -->
+          <div class="hero-visual-side">
+            <div class="hook-card glass">
+              <div class="hook-icon">⚡</div>
+              <h3 class="hook-title">High-Impact</h3>
+              <p class="hook-desc">Web Apps & E-Commerce</p>
+              <div class="hook-tech">
+                <span>SaaS</span>
+                <span>UI/UX</span>
+                <span>3D Web</span>
+              </div>
+              <a href="CV.pdf" download class="btn-neon hook-cv" data-i18n="btn_cv">Download CV ↓</a>
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -85,7 +107,7 @@
           <button class="filter-btn" data-filter="webapp" data-i18n="filter_webapp">Web Apps</button>
         </div>
 
-        <!-- Dynamic Grid (يتم ملؤها بواسطة script.js) -->
+        <!-- Dynamic Grid -->
         <div class="projects-grid" id="projectsGrid"></div>
       </div>
     </section>
@@ -134,7 +156,7 @@
     <div class="modal-content glass">
       <button id="closeModal" class="modal-close">&times;</button>
       
-      <!-- تم استبدال الصورة بـ div ليدعم الخلفيات الملونة (Themes) -->
+      <!-- تم استبدال الصورة بـ div ليدعم الخلفيات الملونة -->
       <div id="modalImage" class="modal-image"></div>
       
       <div class="modal-info">
@@ -152,8 +174,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-  <!-- Custom JS & Lang -->
-  <script src="lang.js?v=9"></script>
-  <script src="script.js?v=9"></script>
+  <!-- Custom JS & Lang (تم تحديث الأرقام لتجاوز الكاش) -->
+  <script src="lang.js?v=12"></script>
+  <script src="script.js?v=12"></script>
 </body>
 </html>
