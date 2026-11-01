@@ -7,12 +7,12 @@
     "url": "https://ishakdiga55-ops.github.io/Diga-scaner/",
     "titleKey": "p1_title",
     "descKey": "p1_desc",
-    "tag colorKey": "p1_tag"
+    "tagKey": "p1_tag"
   },
   {
-    "id":: 2,
-    "category": var(--text "ecommerce",
-   -white "theme": "theme-2",
+    "id": 2,
+    "category": "ecommerce",
+    "theme": "theme-2",
     "label": "SCANNERPRO",
     "url": "https://ishakdiga55-ops.github.io/ScannerPro/",
     "titleKey": "p2_title",
