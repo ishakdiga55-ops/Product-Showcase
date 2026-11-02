@@ -1,7 +1,6 @@
 (function () {
   'use strict';
 
-  // خط دفاع: في حال لم يتم تحميل lang.js
   if (typeof translations === 'undefined') window.translations = { en: {}, ar: {} };
 
   const IS_MOBILE = window.matchMedia('(max-width: 768px)').matches;
@@ -9,7 +8,7 @@
 
   gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-  // 1. بيانات المشاريع المضمنة (لضمان الظهور 100%)
+  // بيانات احتياطية لضمان ظهور المشاريع
   const fallbackProjects = [
     {id:1, category:"webapp", theme:"theme-1", label:"DIGA SCANNER", url:"https://ishakdiga55-ops.github.io/Diga-scaner/", titleKey:"p1_title", descKey:"p1_desc", tagKey:"p1_tag"},
     {id:2, category:"ecommerce", theme:"theme-2", label:"SCANNERPRO", url:"https://ishakdiga55-ops.github.io/ScannerPro/", titleKey:"p2_title", descKey:"p2_desc", tagKey:"p2_tag"},
@@ -24,7 +23,6 @@
 
   let allProjects = [];
 
-  // 2. رسم المشاريع
   function renderProjects(projects) {
     const grid = document.getElementById('projectsGrid');
     if (!grid) return;
@@ -53,7 +51,6 @@
       grid.insertAdjacentHTML('beforeend', cardHTML);
     });
     
-    // إظهار الكروت فوراً (حل مشكلة الاختفاء)
     gsap.to('.project-card', { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out' });
   }
 
@@ -63,13 +60,12 @@
       if (!response.ok) throw new Error("JSON not found");
       allProjects = await response.json();
     } catch (e) {
-      console.warn("Using fallback data due to fetch error.");
+      console.warn("Using fallback data.");
       allProjects = fallbackProjects; 
     }
     renderProjects(allProjects);
   }
 
-  // 3. النافذة المنبثقة والتصفية
   window.openProjectModal = function(id) {
     const project = allProjects.find(p => p.id === id);
     if (!project) return;
@@ -115,23 +111,20 @@
     }
   }
 
-  // 4. محرك الهوك 3D (Three.js + Tilt)
+  // 3D Hook Engine
   function init3DHook() {
     const card = document.getElementById('hookCard');
     const canvas = document.getElementById('hook-canvas');
-    if (!card || !canvas || IS_MOBILE || PREFERS_REDUCED) return;
+    if (!card || !canvas || PREFERS_REDUCED) return;
 
-    // أ. تأثير الإمالة (Tilt Effect)
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
-      
-      const rotateX = ((y - centerY) / centerY) * -15; // أقصى ميلان 15 درجة
+      const rotateX = ((y - centerY) / centerY) * -15;
       const rotateY = ((x - centerX) / centerX) * 15;
-
       card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
     });
 
@@ -139,35 +132,50 @@
       card.style.transform = `rotateX(0) rotateY(0) scale(1)`;
     });
 
-    // ب. رسم المجسم 3D داخل البطاقة
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(50, card.offsetWidth / card.offsetHeight, 0.1, 100);
     const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
     
     renderer.setSize(card.offsetWidth, card.offsetHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    camera.position.z = 5;
+    camera.position.z = 6;
 
-    // شكل هندسي مضيء (Torus Knot)
-    const geometry = new THREE.TorusKnotGeometry(1.2, 0.4, 100, 16);
-    const material = new THREE.MeshNormalMaterial({ wireframe: true, transparent: true, opacity: 0.3 });
-    const knot = new THREE.Mesh(geometry, material);
-    scene.add(knot);
+    const geometry = new THREE.IcosahedronGeometry(1.8, 1);
+    const material = new THREE.MeshPhongMaterial({ 
+      color: 0x00d9ff, 
+      wireframe: true, 
+      transparent: true, 
+      opacity: 0.4,
+      emissive: 0x00d9ff,
+      emissiveIntensity: 0.5
+    });
+    const coreMesh = new THREE.Mesh(geometry, material);
+    scene.add(coreMesh);
 
-    // إضاءة
-    const light = new THREE.PointLight(0x00d9ff, 2, 10);
-    light.position.set(2, 3, 4);
-    scene.add(light);
+    const particlesGeo = new THREE.BufferGeometry();
+    const particlesCount = 100;
+    const posArray = new Float32Array(particlesCount * 3);
+    for(let i = 0; i < particlesCount * 3; i++) {
+      posArray[i] = (Math.random() - 0.5) * 8;
+    }
+    particlesGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+    const particlesMat = new THREE.PointsMaterial({ size: 0.05, color: 0x22ff88, transparent: true, blending: THREE.AdditiveBlending });
+    const particlesMesh = new THREE.Points(particlesGeo, particlesMat);
+    scene.add(particlesMesh);
+
+    const light1 = new THREE.PointLight(0x00d9ff, 2, 10); light1.position.set(2, 3, 4); scene.add(light1);
+    const light2 = new THREE.PointLight(0x22ff88, 2, 10); light2.position.set(-2, -3, 4); scene.add(light2);
 
     function animateHook() {
       requestAnimationFrame(animateHook);
-      knot.rotation.x += 0.005;
-      knot.rotation.y += 0.01;
+      coreMesh.rotation.x += 0.002;
+      coreMesh.rotation.y += 0.003;
+      particlesMesh.rotation.y -= 0.001;
+      particlesMesh.rotation.x += 0.001;
       renderer.render(scene, camera);
     }
     animateHook();
 
-    // تحديث الحجم عند تغيير الشاشة
     window.addEventListener('resize', () => {
       camera.aspect = card.offsetWidth / card.offsetHeight;
       camera.updateProjectionMatrix();
@@ -175,16 +183,15 @@
     });
   }
 
-  // 5. تهيئة عامة
   function init() {
     loadProjects();
     initFilters();
     initModal();
     init3DHook();
 
-    // حركة دخول الهيرو
     if (!PREFERS_REDUCED) {
       gsap.from('.hero-text-side > *', { y: 30, opacity: 0, duration: 0.8, stagger: 0.15, ease: 'power3.out' });
+      gsap.from('.hook-card-wrapper', { x: 50, opacity: 0, duration: 1, ease: 'power3.out', delay: 0.3 });
     }
 
     window.addEventListener('languageChanged', () => {
