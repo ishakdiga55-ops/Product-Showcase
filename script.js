@@ -110,15 +110,12 @@
     }
   }
 
-  // ==========================================
-  // 3D NEURAL NETWORK HOOK ENGINE
-  // ==========================================
+  // 3D Neural Network Hook Engine
   function init3DHook() {
     const card = document.getElementById('hookCard');
     const canvas = document.getElementById('hook-canvas');
     if (!card || !canvas || PREFERS_REDUCED) return;
 
-    // تأثير الإمالة (للحاسوب فقط)
     if (!IS_MOBILE) {
       card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
@@ -126,7 +123,7 @@
         const y = e.clientY - rect.top;
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
-        const rotateX = ((y - centerY) / centerY) * -10; // تقليل زاوية الميلان قليلاً
+        const rotateX = ((y - centerY) / centerY) * -10;
         const rotateY = ((x - centerX) / centerX) * 10;
         card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
       });
@@ -137,7 +134,7 @@
     const camera = new THREE.PerspectiveCamera(50, card.offsetWidth / card.offsetHeight, 0.1, 100);
     const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
     
-    camera.position.set(0, 0, 8); // تمركز الكاميرا
+    camera.position.set(0, 0, 8);
 
     function updateSize() {
       const w = card.offsetWidth; const h = card.offsetHeight;
@@ -151,42 +148,32 @@
     updateSize();
     setTimeout(updateSize, 200);
 
-    // 1. توليد العقد (النقاط/الخلايا)
-    const particleCount = 70; // عدد النقاط
-    const radius = 2.5; // نصف قطر الشبكة
+    const particleCount = 70;
+    const radius = 2.5;
     const positions = [];
     const velocities = [];
 
     for (let i = 0; i < particleCount; i++) {
-      // توزيع النقاط عشوائياً داخل كرة
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.acos((Math.random() * 2) - 1);
       const r = radius * Math.cbrt(Math.random());
-      
       const x = r * Math.sin(phi) * Math.cos(theta);
       const y = r * Math.sin(phi) * Math.sin(theta);
       const z = r * Math.cos(phi);
-      
       positions.push(new THREE.Vector3(x, y, z));
       velocities.push(new THREE.Vector3((Math.random()-0.5)*0.01, (Math.random()-0.5)*0.01, (Math.random()-0.5)*0.01));
     }
 
-    // 2. رسم النقاط (النواة)
     const pointsGeometry = new THREE.BufferGeometry().setFromPoints(positions);
     const pointsMaterial = new THREE.PointsMaterial({
-      color: 0x00d9ff, size: 0.12, transparent: true, opacity: 0.9,
-      blending: THREE.AdditiveBlending
+      color: 0x00d9ff, size: 0.12, transparent: true, opacity: 0.9, blending: THREE.AdditiveBlending
     });
     const pointsMesh = new THREE.Points(pointsGeometry, pointsMaterial);
     scene.add(pointsMesh);
 
-    // 3. رسم الروابط (الخطوط بين النقاط القريبة)
     const lineGeometry = new THREE.BufferGeometry();
     const linePositions = [];
-    
-    // تحديد المسافة القصوى لرسم خط بين نقطتين
     const maxDistance = 1.8; 
-
     for (let i = 0; i < particleCount; i++) {
       for (let j = i + 1; j < particleCount; j++) {
         const dist = positions[i].distanceTo(positions[j]);
@@ -204,10 +191,8 @@
     const linesMesh = new THREE.LineSegments(lineGeometry, lineMaterial);
     scene.add(linesMesh);
 
-    // إضاءة خلفية
     const light = new THREE.PointLight(0x00d9ff, 2, 20); light.position.set(5, 5, 5); scene.add(light);
 
-    // 4. الأنيميشن (الدوران)
     const neuralGroup = new THREE.Group();
     neuralGroup.add(pointsMesh);
     neuralGroup.add(linesMesh);
@@ -215,7 +200,6 @@
 
     function animateHook() {
       requestAnimationFrame(animateHook);
-      // دوران بطيء للشبكة كاملة
       neuralGroup.rotation.y += 0.003;
       neuralGroup.rotation.x += 0.001;
       renderer.render(scene, camera);
