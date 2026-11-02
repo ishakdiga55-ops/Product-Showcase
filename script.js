@@ -8,7 +8,6 @@
 
   gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-  // بيانات احتياطية لضمان ظهور المشاريع
   const fallbackProjects = [
     {id:1, category:"webapp", theme:"theme-1", label:"DIGA SCANNER", url:"https://ishakdiga55-ops.github.io/Diga-scaner/", titleKey:"p1_title", descKey:"p1_desc", tagKey:"p1_tag"},
     {id:2, category:"ecommerce", theme:"theme-2", label:"SCANNERPRO", url:"https://ishakdiga55-ops.github.io/ScannerPro/", titleKey:"p2_title", descKey:"p2_desc", tagKey:"p2_tag"},
@@ -111,76 +110,119 @@
     }
   }
 
-  // 3D Hook Engine
+  // ==========================================
+  // 3D NEURAL NETWORK HOOK ENGINE
+  // ==========================================
   function init3DHook() {
     const card = document.getElementById('hookCard');
     const canvas = document.getElementById('hook-canvas');
     if (!card || !canvas || PREFERS_REDUCED) return;
 
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      const rotateX = ((y - centerY) / centerY) * -15;
-      const rotateY = ((x - centerX) / centerX) * 15;
-      card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
-    });
-
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = `rotateX(0) rotateY(0) scale(1)`;
-    });
+    // تأثير الإمالة (للحاسوب فقط)
+    if (!IS_MOBILE) {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -10; // تقليل زاوية الميلان قليلاً
+        const rotateY = ((x - centerX) / centerX) * 10;
+        card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+      });
+      card.addEventListener('mouseleave', () => { card.style.transform = `rotateX(0) rotateY(0) scale(1)`; });
+    }
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(50, card.offsetWidth / card.offsetHeight, 0.1, 100);
     const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
     
-    renderer.setSize(card.offsetWidth, card.offsetHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    camera.position.z = 6;
+    camera.position.set(0, 0, 8); // تمركز الكاميرا
 
-    const geometry = new THREE.IcosahedronGeometry(1.8, 1);
-    const material = new THREE.MeshPhongMaterial({ 
-      color: 0x00d9ff, 
-      wireframe: true, 
-      transparent: true, 
-      opacity: 0.4,
-      emissive: 0x00d9ff,
-      emissiveIntensity: 0.5
-    });
-    const coreMesh = new THREE.Mesh(geometry, material);
-    scene.add(coreMesh);
-
-    const particlesGeo = new THREE.BufferGeometry();
-    const particlesCount = 100;
-    const posArray = new Float32Array(particlesCount * 3);
-    for(let i = 0; i < particlesCount * 3; i++) {
-      posArray[i] = (Math.random() - 0.5) * 8;
+    function updateSize() {
+      const w = card.offsetWidth; const h = card.offsetHeight;
+      if (w > 0 && h > 0) {
+        renderer.setSize(w, h);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+      }
     }
-    particlesGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-    const particlesMat = new THREE.PointsMaterial({ size: 0.05, color: 0x22ff88, transparent: true, blending: THREE.AdditiveBlending });
-    const particlesMesh = new THREE.Points(particlesGeo, particlesMat);
-    scene.add(particlesMesh);
+    updateSize();
+    setTimeout(updateSize, 200);
 
-    const light1 = new THREE.PointLight(0x00d9ff, 2, 10); light1.position.set(2, 3, 4); scene.add(light1);
-    const light2 = new THREE.PointLight(0x22ff88, 2, 10); light2.position.set(-2, -3, 4); scene.add(light2);
+    // 1. توليد العقد (النقاط/الخلايا)
+    const particleCount = 70; // عدد النقاط
+    const radius = 2.5; // نصف قطر الشبكة
+    const positions = [];
+    const velocities = [];
+
+    for (let i = 0; i < particleCount; i++) {
+      // توزيع النقاط عشوائياً داخل كرة
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos((Math.random() * 2) - 1);
+      const r = radius * Math.cbrt(Math.random());
+      
+      const x = r * Math.sin(phi) * Math.cos(theta);
+      const y = r * Math.sin(phi) * Math.sin(theta);
+      const z = r * Math.cos(phi);
+      
+      positions.push(new THREE.Vector3(x, y, z));
+      velocities.push(new THREE.Vector3((Math.random()-0.5)*0.01, (Math.random()-0.5)*0.01, (Math.random()-0.5)*0.01));
+    }
+
+    // 2. رسم النقاط (النواة)
+    const pointsGeometry = new THREE.BufferGeometry().setFromPoints(positions);
+    const pointsMaterial = new THREE.PointsMaterial({
+      color: 0x00d9ff, size: 0.12, transparent: true, opacity: 0.9,
+      blending: THREE.AdditiveBlending
+    });
+    const pointsMesh = new THREE.Points(pointsGeometry, pointsMaterial);
+    scene.add(pointsMesh);
+
+    // 3. رسم الروابط (الخطوط بين النقاط القريبة)
+    const lineGeometry = new THREE.BufferGeometry();
+    const linePositions = [];
+    
+    // تحديد المسافة القصوى لرسم خط بين نقطتين
+    const maxDistance = 1.8; 
+
+    for (let i = 0; i < particleCount; i++) {
+      for (let j = i + 1; j < particleCount; j++) {
+        const dist = positions[i].distanceTo(positions[j]);
+        if (dist < maxDistance) {
+          linePositions.push(positions[i].x, positions[i].y, positions[i].z);
+          linePositions.push(positions[j].x, positions[j].y, positions[j].z);
+        }
+      }
+    }
+    
+    lineGeometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
+    const lineMaterial = new THREE.LineBasicMaterial({
+      color: 0x22ff88, transparent: true, opacity: 0.15, blending: THREE.AdditiveBlending
+    });
+    const linesMesh = new THREE.LineSegments(lineGeometry, lineMaterial);
+    scene.add(linesMesh);
+
+    // إضاءة خلفية
+    const light = new THREE.PointLight(0x00d9ff, 2, 20); light.position.set(5, 5, 5); scene.add(light);
+
+    // 4. الأنيميشن (الدوران)
+    const neuralGroup = new THREE.Group();
+    neuralGroup.add(pointsMesh);
+    neuralGroup.add(linesMesh);
+    scene.add(neuralGroup);
 
     function animateHook() {
       requestAnimationFrame(animateHook);
-      coreMesh.rotation.x += 0.002;
-      coreMesh.rotation.y += 0.003;
-      particlesMesh.rotation.y -= 0.001;
-      particlesMesh.rotation.x += 0.001;
+      // دوران بطيء للشبكة كاملة
+      neuralGroup.rotation.y += 0.003;
+      neuralGroup.rotation.x += 0.001;
       renderer.render(scene, camera);
     }
     animateHook();
 
-    window.addEventListener('resize', () => {
-      camera.aspect = card.offsetWidth / card.offsetHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(card.offsetWidth, card.offsetHeight);
-    });
+    window.addEventListener('resize', updateSize);
   }
 
   function init() {
