@@ -263,94 +263,71 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
 .footer-bottom p { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 3px; color: rgba(255, 255, 255, 0.35); }
 
 /* ============================================
-   RESPONSIVE (MOBILE FIXES) - تكبير الهوك
+   RESPONSIVE (MOBILE FIXES) - إصلاح جذري
    ============================================ */
 @media (max-width: 1024px) {
-  .hero-layout { flex-direction: column; text-align: center; gap: 30px; }
-  .hero-text-side { text-align: center; width: 100%; }
+  .hero {
+    padding: 80px 15px 40px; /* تقليل المسافة العلوية */
+  }
+  .hero-layout { 
+    flex-direction: column; 
+    text-align: center; 
+    gap: 20px; /* تقليل الفراغ بين النص والبطاقة */
+  }
+  .hero-text-side { 
+    text-align: center; 
+    width: 100%; 
+  }
   .hero-title, .hero-sub { text-align: center; }
-  .hero-actions { justify-content: center; }
   
-  /* إصلاح التمركز وتكبير البطاقة لتملأ عرض الشاشة */
+  /* إصلاح الأزرار لتكون بجانب بعضها إذا سمحت المساحة */
+  .hero-actions { 
+    justify-content: center; 
+    gap: 10px;
+  }
+  .btn-neon { padding: 12px 20px; font-size: 0.75rem; }
+  
+  /* إصلاح البطاقة لتكون أفقية وعريضة */
   .hero-visual-side { 
     justify-content: center; 
     width: 100%; 
     display: flex; 
     flex: none; 
-    padding: 0 15px; /* مسافة بسيطة من الجوانب */
+    padding: 0;
   }
   
   .hook-card-wrapper { 
-    max-width: 100%; /* تأخذ كامل عرض الشاشة */
+    max-width: 100%; 
     width: 100%; 
     margin: 0 auto; 
-    margin-top: 20px; 
   }
   
-  /* تقليل الطول وزيادة العرض */
   .hook-card { 
-    padding: 40px 15px; /* قللنا الـ 70px إلى 40px لتصبح أقصر */
+    padding: 30px 15px; 
+    height: 320px; /* إجبار البطاقة على أن تكون مستطيلة أفقياً */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
   
-  /* منع النص من الانقسام وتصغيره قليلاً ليناسب العرض */
-  .hook-icon { font-size: 3rem; margin-bottom: 15px; }
+  .hook-icon { font-size: 2.5rem; margin-bottom: 10px; }
   .hook-title { 
     font-size: 1.8rem; 
-    letter-spacing: 2px; 
-    margin-bottom: 8px; 
-    white-space: nowrap; /* يمنع النص من النزول لسطر جديد */
+    letter-spacing: 1px; 
+    margin-bottom: 5px; 
+    white-space: nowrap; 
   }
-  .hook-desc { font-size: 1rem; margin-bottom: 20px; }
+  .hook-desc { font-size: 0.9rem; margin-bottom: 15px; }
   .hook-tech { gap: 8px; }
-  .hook-tech span { font-size: 0.75rem; padding: 8px 14px; }
+  .hook-tech span { font-size: 0.7rem; padding: 6px 12px; }
   
-  .hero-bg-text { font-size: 35vw; }
-}
-
-@media (max-width: 900px) { .project-card { height: 400px; } .project-title { font-size: 1.5rem; } }
-
-@media (max-width: 768px) {
-  .hero-bg-text { font-size: 40vw; -webkit-text-stroke: 1px rgba(0, 217, 255, 0.1); }
-  .hero-title { font-size: 2.5rem; }
-  .section-title { font-size: 2rem; } .section-sub { margin-bottom: 30px; }
-  .projects, .about, .footer { padding: 70px 20px; }
-  .project-card { height: 380px; } .project-overlay { padding: 22px; } .project-title { font-size: 1.3rem; }
-  .project-description { opacity: 1; transform: none; max-height: none; } 
-  .project-button { opacity: 1; transform: none; }
-  .about-card { padding: 28px; } .about-card p { font-size: 0.95rem; }
-  .btn-neon { padding: 12px 24px; font-size: 0.72rem; }
-  .modal-image { height: 250px; } .modal-info { padding: 20px; }
+  .hero-bg-text { font-size: 30vw; }
 }
 
 @media (max-width: 480px) { 
   .hero-title { font-size: 2rem; } 
   .section-title { font-size: 1.6rem; } 
   .project-card { height: 340px; } 
-  /* تصغير إضافي للنص في الشاشات الصغيرة جداً */
-  .hook-title { font-size: 1.5rem; white-space: normal; }
-}
-
-/* ============================================
-   LANGUAGE SWITCHER & RTL SUPPORT
-   ============================================ */
-.lang-switcher {
-  position: fixed; top: 20px; right: 20px; z-index: 1000;
-  background: rgba(0, 217, 255, 0.1); border: 1px solid var(--neon-cyan);
-  color: var(--neon-cyan); padding: 8px 16px; border-radius: 20px;
-  font-family: inherit; font-weight: 700; cursor: pointer;
-  transition: all 0.3s ease; backdrop-filter: blur(10px);
-}
-.lang-switcher:hover { background: var(--neon-cyan); color: var(--bg-dark); box-shadow: 0 0 15px var(--neon-cyan); }
-
-html[dir="rtl"] { font-family: 'Cairo', sans-serif; }
-html[dir="rtl"] .lang-switcher { right: auto; left: 20px; }
-html[dir="rtl"] .project-tag, html[dir="rtl"] .eyebrow, html[dir="rtl"] .section-sub { letter-spacing: normal; }
-html[dir="rtl"] .project-title, html[dir="rtl"] .section-title, html[dir="rtl"] .hero-title, html[dir="rtl"] .footer-title { letter-spacing: -0.01em; }
-@media (max-width: 768px) { .lang-switcher { top: 15px; right: 15px; padding: 6px 14px; font-size: 0.8rem; } html[dir="rtl"] .lang-switcher { left: 15px; right: auto; } }
-
-/* ============================================
-   ACCESSIBILITY
-   ============================================ */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+  .hook-title { font-size: 1.5rem; }
+  .hook-card { height: 280px; padding: 20px 10px; } /* تصغير الطول أكثر للشاشات الصغيرة جداً */
 }
