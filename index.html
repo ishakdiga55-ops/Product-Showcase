@@ -5,11 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ishak Ziat — Front-End Engineer</title>
 
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;800&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
 
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -22,12 +24,16 @@
     };
   </script>
 
+  <!-- Custom CSS -->
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body class="font-grotesk">
 
+  <!-- Language Switcher -->
   <button id="langToggle" class="lang-switcher" aria-label="Switch Language">عربي</button>
+
+  <!-- Custom Cursor & 3D Background -->
   <div class="cursor" id="cursor" aria-hidden="true"></div>
   <canvas id="canvas" aria-hidden="true"></canvas>
 
@@ -41,6 +47,7 @@
       <div class="max-w-7xl mx-auto px-6 hero-content">
         <div class="hero-layout">
           
+          <!-- النصوص والأزرار -->
           <div class="hero-text-side">
             <div class="hero-badge">
               <span class="badge-dot"></span>
@@ -78,7 +85,6 @@
                     <span>UI/UX</span>
                     <span>3D Web</span>
                   </div>
-                  <a href="CV.pdf" download class="btn-neon hook-cv" data-i18n="btn_cv">Download CV ↓</a>
                 </div>
               </div>
             </div>
@@ -113,7 +119,9 @@
       <div class="max-w-5xl mx-auto px-6">
         <h2 class="section-title text-center" data-i18n="sec_about">Skills &amp; Expertise</h2>
         <div class="glass about-card">
-          <p data-i18n="about_text">...</p>
+          <p data-i18n="about_text">
+            I specialize in building immersive web experiences that blend aesthetics with functionality. With expertise in modern frontend technologies and a keen eye for design, I transform concepts into interactive digital products that captivate and engage users.
+          </p>
         </div>
         <div class="skills-list">
           <span class="skill-badge">HTML5</span>
@@ -121,6 +129,7 @@
           <span class="skill-badge">JavaScript</span>
           <span class="skill-badge">Three.js</span>
           <span class="skill-badge">GSAP</span>
+          <span class="skill-badge">UI/UX Design</span>
         </div>
       </div>
     </section>
@@ -129,7 +138,7 @@
     <footer id="contact" class="footer">
       <div class="max-w-3xl mx-auto px-6 text-center">
         <h2 class="footer-title" data-i18n="footer_title">Let's Work Together</h2>
-        <p class="footer-sub" data-i18n="footer_sub">...</p>
+        <p class="footer-sub" data-i18n="footer_sub">Have a project in mind? I'd love to discuss how we can create something extraordinary.</p>
         <a href="mailto:Ishakziat66@gmail.com" class="btn-neon btn-neon--green" data-i18n="footer_btn">Send Me An Email</a>
         <div class="footer-bottom">
           <p data-i18n="footer_rights">© 2025 Creative Developer. All rights reserved.</p>
@@ -138,7 +147,7 @@
     </footer>
   </div>
 
-  <!-- Modal -->
+  <!-- Modal (Quick View) -->
   <div id="projectModal" class="modal">
     <div class="modal-content glass">
       <button id="closeModal" class="modal-close">&times;</button>
@@ -147,17 +156,19 @@
         <span id="modalTag" class="project-tag"></span>
         <h3 id="modalTitle" class="project-title"></h3>
         <p id="modalDesc" class="project-description"></p>
-        <a id="modalLink" href="" target="_blank" class="btn-neon btn-neon--green" data-i18n="modal_visit">Visit Live Site ↗</a>
+        <a id="modalLink" href="" target="_blank" rel="noopener noreferrer" class="btn-neon btn-neon--green" data-i18n="modal_visit">Visit Live Site ↗</a>
       </div>
     </div>
   </div>
 
+  <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-  <script src="lang.js?v=30"></script>
-  <script src="script.js?v=30"></script>
+  <!-- Custom JS & Lang -->
+  <script src="lang.js?v=100"></script>
+  <script src="script.js?v=100"></script>
 </body>
 </html>
