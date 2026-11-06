@@ -185,6 +185,8 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
 .theme-7 { background: linear-gradient(135deg, #0a2e1a 0%, #00ffaa 130%); }
 .theme-8 { background: linear-gradient(135deg, #1a0a2e 0%, #d900ff 130%); }
 .theme-9 { background: linear-gradient(135deg, #2e2e0a 0%, #ffd700 130%); }
+.theme-10 { background: linear-gradient(135deg, #2e0a0a 0%, #ff4444 130%); } /* Bipli */
+.theme-11 { background: linear-gradient(135deg, #0a0a2e 0%, #4444ff 130%); } /* L'équipe du progrès */
 
 .project-image-label {
   font-size: 1.1rem; font-weight: 800; letter-spacing: 6px;
@@ -263,7 +265,7 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
 .footer-bottom p { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 3px; color: rgba(255, 255, 255, 0.35); }
 
 /* ============================================
-   RESPONSIVE (MOBILE FIXES) - إصلاح قسري
+   RESPONSIVE (MOBILE FIXES) - إصلاح قسري للهوك
    ============================================ */
 @media (max-width: 1024px) {
   .hero { padding: 80px 15px 40px; }
@@ -276,10 +278,9 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
   .hero-visual-side { justify-content: center; width: 100%; display: flex; flex: none; padding: 0; }
   .hook-card-wrapper { max-width: 95vw !important; width: 95vw !important; margin: 0 auto !important; }
   
-  /* إجبار البطاقة على الشكل الأفقي العريض */
   .hook-card { 
     padding: 25px 15px !important; 
-    aspect-ratio: 1.5 / 1 !important; /* العرض أكبر من الطول بـ 1.5 مرة */
+    aspect-ratio: 1.5 / 1 !important; 
     height: auto !important; 
     display: flex; flex-direction: column; justify-content: center; align-items: center;
   }
