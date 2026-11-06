@@ -24,6 +24,8 @@ const translations = {
     p7_tag: "Healthcare / Pharmacy / E-commerce", p7_title: "Al-Nour Pharmacy", p7_desc: "A modern pharmacy website offering prescription dispensing, health consultations, home delivery, and medical products.",
     p8_tag: "E-commerce / Automotive / Spare Parts", p8_title: "Auto Spare Parts", p8_desc: "A professional e-commerce platform for automotive spare parts, featuring a clean interface and smooth product browsing.",
     p9_tag: "Web App / SaaS / Dashboard", p9_title: "Mini-Market Merchant", p9_desc: "A comprehensive dashboard for merchants to manage their e-commerce stores, track sales, and handle inventory.",
+    p10_tag: "POS / Web App / System", p10_title: "Bipli Cashier", p10_desc: "A comprehensive Point of Sale (POS) system for managing sales, transactions, and inventory quickly and efficiently.",
+    p11_tag: "Landing Page / Corporate / Web", p11_title: "L'équipe du progrès", p11_desc: "A professional landing page for L'équipe du progrès, highlighting their services, vision, and team with a modern touch.",
     
     sec_about: "Skills & Expertise",
     about_text: "I specialize in building immersive web experiences that blend aesthetics with functionality. With expertise in modern frontend technologies and a keen eye for design, I transform concepts into interactive digital products that captivate and engage users.",
@@ -58,6 +60,8 @@ const translations = {
     p7_tag: "رعاية صحية / صيدلية / تجارة إلكترونية", p7_title: "صيدلية النور", p7_desc: "موقع صيدلية حديث يقدم صرف الوصفات الطبية، الاستشارات الصحية، التوصيل المنزلي، وتشكيلة من المنتجات الطبية.",
     p8_tag: "تجارة إلكترونية / سيارات / قطع غيار", p8_title: "قطع غيار السيارات", p8_desc: "منصة تجارة إلكترونية احترافية لقطع غيار السيارات، تتميز بواجهة نظيفة وتجربة تصفح سلسة للمنتجات.",
     p9_tag: "تطبيق ويب / SaaS / لوحة تحكم", p9_title: "لوحة تحكم التجار - Mini Market", p9_desc: "لوحة تحكم شاملة للتجار لإدارة متاجرهم الإلكترونية، تتبع المبيعات، وإدارة المخزون.",
+    p10_tag: "نظام كاشير / تطبيق ويب", p10_title: "ببلي - كاشير", p10_desc: "نظام كاشير (POS) متكامل لإدارة المبيعات والمعاملات والمخزون بسرعة وكفاءة عالية.",
+    p11_tag: "صفحة هبوط / شركات / ويب", p11_title: "فريق التقدم", p11_desc: "موقع تعريفي احترافي لفريق التقدم، يبرز خدماتهم ورؤيتهم وأعضاء الفريق بأسلوب عصري وجذاب.",
     
     sec_about: "المهارات والخبرات",
     about_text: "أركز في عملي على بناء تجارب ويب تفاعلية تجمع بين الجمال والوظائف العملية. بفضل خبرتي في تقنيات الواجهة الأمامية الحديثة ونظرتي الثاقبة للتصميم، أحوّل الأفكار إلى منتجات رقمية تفاعلية تجذب المستخدمين وتُحفّزهم على التفاعل.",
