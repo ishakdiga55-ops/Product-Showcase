@@ -17,7 +17,9 @@
     {id:6, category:"ecommerce", theme:"theme-6", label:"LAMA BEAUTY", url:"https://ishakdiga55-ops.github.io/beauty/", titleKey:"p6_title", descKey:"p6_desc", tagKey:"p6_tag"},
     {id:7, category:"ecommerce", theme:"theme-7", label:"AL-NOUR PHARMACY", url:"https://ishakdiga55-ops.github.io/Nour-Pharmacy/#order", titleKey:"p7_title", descKey:"p7_desc", tagKey:"p7_tag"},
     {id:8, category:"ecommerce", theme:"theme-8", label:"AUTO PARTS", url:"https://ishakdiga55-ops.github.io/Pi-ces-d-tach-es-automobiles/", titleKey:"p8_title", descKey:"p8_desc", tagKey:"p8_tag"},
-    {id:9, category:"webapp", theme:"theme-9", label:"MINI MARKET", url:"https://ishakdiga55-ops.github.io/Mini-Market/#/merchant/m4", titleKey:"p9_title", descKey:"p9_desc", tagKey:"p9_tag"}
+    {id:9, category:"webapp", theme:"theme-9", label:"MINI MARKET", url:"https://ishakdiga55-ops.github.io/Mini-Market/#/merchant/m4", titleKey:"p9_title", descKey:"p9_desc", tagKey:"p9_tag"},
+    {id:10, category:"webapp", theme:"theme-10", label:"BIPLI CASHIER", url:"https://bipli-1.onrender.com/cashier/", titleKey:"p10_title", descKey:"p10_desc", tagKey:"p10_tag"},
+    {id:11, category:"webapp", theme:"theme-11", label:"L'EQUIPE DU PROGRES", url:"https://ishakdiga55-ops.github.io/L-quipe-du-progr-s/#", titleKey:"p11_title", descKey:"p11_desc", tagKey:"p11_tag"}
   ];
 
   let allProjects = [];
@@ -110,7 +112,6 @@
     }
   }
 
-  // 3D Neural Network Hook Engine
   function init3DHook() {
     const card = document.getElementById('hookCard');
     const canvas = document.getElementById('hook-canvas');
