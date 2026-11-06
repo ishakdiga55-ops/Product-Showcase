@@ -5,13 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ishak Ziat — Front-End Engineer</title>
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;800&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
 
-  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -24,8 +22,7 @@
     };
   </script>
 
-  <!-- Custom CSS (تمت إضافة كاسر الكاش v=999) -->
-  <link rel="stylesheet" href="style.css?v=999" />
+  <link rel="stylesheet" href="style.css?v=1001" />
 </head>
 
 <body class="font-grotesk">
@@ -35,56 +32,46 @@
   <canvas id="canvas" aria-hidden="true"></canvas>
 
   <div class="content">
-
-    <!-- Hero Section (3D Neural Hook) -->
+    <!-- Hero Section -->
     <section id="hero" class="hero">
       <div class="hero-glow-bg" aria-hidden="true"></div>
       <div class="hero-bg-text" aria-hidden="true">ENGINEER</div>
 
       <div class="max-w-7xl mx-auto px-6 hero-content">
         <div class="hero-layout">
-          
           <div class="hero-text-side">
             <div class="hero-badge">
               <span class="badge-dot"></span>
               <span data-i18n="hero_badge">Available for work</span>
             </div>
-
             <h1 class="hero-title" data-i18n="hero_title">
               ENGINEERING HIGH-PERFORMANCE<br />
               <span class="neon-glow">WEB & E-COMMERCE SYSTEMS</span>
             </h1>
-            
             <p class="hero-sub" data-i18n="hero_sub">
               I turn complex ideas into seamless, high-performance user interfaces. Specializing in dynamic systems (SaaS) and full-scale e-commerce. I will build you a professional website that speaks for itself and delivers results.
             </p>
-            
             <div class="hero-actions">
               <a href="#projects" class="btn-neon" data-i18n="btn_view_work">Explore My Work</a>
               <a href="mailto:Ishakziat66@gmail.com" class="btn-neon btn-neon--green" data-i18n="btn_get_touch">Hire Me</a>
             </div>
           </div>
 
-          <!-- 3D Hook Card -->
           <div class="hero-visual-side">
             <div class="hook-card-wrapper">
               <div class="hook-card glass" id="hookCard">
                 <canvas id="hook-canvas"></canvas>
-                
                 <div class="hook-content">
                   <div class="hook-icon">⚡</div>
                   <h3 class="hook-title">High-Impact</h3>
                   <p class="hook-desc">Web Apps & E-Commerce</p>
                   <div class="hook-tech">
-                    <span>SaaS</span>
-                    <span>UI/UX</span>
-                    <span>3D Web</span>
+                    <span>SaaS</span><span>UI/UX</span><span>3D Web</span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
         </div>
       </div>
 
@@ -142,7 +129,7 @@
     </footer>
   </div>
 
-  <!-- Modal (Quick View) -->
+  <!-- Modal -->
   <div id="projectModal" class="modal">
     <div class="modal-content glass">
       <button id="closeModal" class="modal-close">&times;</button>
@@ -161,8 +148,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-  <!-- Custom JS (تمت إضافة كاسر الكاش v=999) -->
-  <script src="lang.js?v=999"></script>
-  <script src="script.js?v=999"></script>
+  <script src="lang.js?v=1001"></script>
+  <script src="script.js?v=1001"></script>
 </body>
 </html>
